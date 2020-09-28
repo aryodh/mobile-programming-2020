@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical"
+    android:padding="24dp"
+
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/headerImage"
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/ic_undraw_coding_6mjf">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/mainText"
+        android:layout_width="363dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:text="Hello World!"
+        android:textColor="?attr/textColor"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@id/headerImage"
+        app:layout_constraintLeft_toLeftOf="@id/headerImage"
+        app:layout_constraintRight_toRightOf="@id/headerImage"
+        app:layout_constraintTop_toTopOf="@+id/headerImage" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="#6C63FF"
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="1dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:src="@android:drawable/divider_horizontal_dark" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/aboutMeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="About Me"
+                android:textColor="?attr/textColor"
+                android:textSize="14dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/aboutMeContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Curios and organized person who has passion in technology, great listener, enjoy working with a lot of different people, and also a creative thinker."
+                android:textColor="?attr/textColor"
+                android:textSize="14dp"></TextView>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/darkModeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Too Bright?"
+                android:textColor="?attr/textColor"
+                android:textSize="14dp"
+                android:textStyle="bold"></TextView>
+
+            <Switch
+                android:id="@+id/darkModeSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Dark Mode"
+                android:textColor="?attr/textColor"
+                android:textSize="14dp"></Switch>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
