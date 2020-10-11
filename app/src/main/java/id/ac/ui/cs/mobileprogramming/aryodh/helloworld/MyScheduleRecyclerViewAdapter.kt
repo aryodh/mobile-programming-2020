@@ -21,8 +21,8 @@ class MyScheduleRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_schedule_detail, parent,    false)
-        Log.d("######### LOG #########", "ViewHolder onCreate on Adapter Called")
+            .inflate(R.layout.fragment_schedule_list, parent,    false)
+        Log.d("######### LOG #########", "MyScheduleRecyclerViewAdapter: onCreateViewHolder called")
         return ViewHolder(view)
     }
 
@@ -32,8 +32,9 @@ class MyScheduleRecyclerViewAdapter(
         holder.contentView.text = item.title
         holder.itemView.setOnClickListener{
             viewModel?.setSchedule(item.details)
-            (holder.itemView.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.schedule_list_fragment, ScheduleDetailFragment()).commit()
-            Log.d("######### LOG #########", "ScheduleDetail Created on Adapter")
+            (holder.itemView.context as FragmentActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.schedule_list_fragment, ScheduleDetailFragment()).commit()
+            Log.d("######### LOG #########", "MyScheduleRecyclerViewAdapter: ScheduleDetail onClick Called")
         }
     }
 
@@ -44,8 +45,6 @@ class MyScheduleRecyclerViewAdapter(
         val contentView: TextView = view.findViewById(R.id.content)
 
         override fun toString(): String {
-            Log.d("######### LOG #########", "toString on Adapter Called")
-            Log.d("######### LOG #########", "msg:" + contentView.text)
             return super.toString() + " '" + contentView.text + "'"
         }
     }

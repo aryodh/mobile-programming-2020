@@ -1,13 +1,11 @@
 package id.ac.ui.cs.mobileprogramming.aryodh.helloworld
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -26,7 +24,7 @@ class ScheduleDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
             viewModel = ViewModelProviders.of(activity!!).get(ScheduleViewModel::class.java)
-        val rootView: View = inflater.inflate(R.layout.fragment_schedule, container, false)
+        val rootView: View = inflater.inflate(R.layout.fragment_schedule_detail, container, false)
         val scheduleTitle: TextView = rootView.findViewById(R.id.schedule_details_title)
         val scheduleDate: TextView = rootView.findViewById(R.id.schedule_details_date)
         val scheduleTime: TextView = rootView.findViewById(R.id.schedule_details_time)
@@ -44,7 +42,7 @@ class ScheduleDetailFragment : Fragment() {
                 scheduleContent.text = scheduleList[4]
             })
 
-        Log.d("######### LOG #########", "ScheduleDetail Created on ScheduleDetailFragment")
+        Log.d("######### LOG #########", "ScheduleDetailFragment: ScheduleDetail Created")
 
         return rootView
     }

@@ -17,7 +17,7 @@ import id.ac.ui.cs.mobileprogramming.aryodh.helloworld.schedule.ScheduleContent
  */
 class ScheduleListFragment : Fragment() {
 
-    private var columnCount = 2
+    private var columnCount = 1
     private var viewModel: ScheduleViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,9 +32,9 @@ class ScheduleListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_schedule_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_schedule, container, false)
         viewModel= ViewModelProviders.of(activity!!).get(ScheduleViewModel::class.java)
-        Log.d("TAG", "Schedule List Created")
+        Log.d("######### LOG #########", "ScheduleListFragment: onCreateView called")
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {

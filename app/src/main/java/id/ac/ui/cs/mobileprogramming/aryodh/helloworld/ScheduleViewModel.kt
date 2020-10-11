@@ -1,5 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.aryodh.helloworld
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -9,6 +10,7 @@ class ScheduleViewModel : ViewModel() {
 
     fun setSchedule(schedule: List<String>){
         this.schedule.value = schedule
+        Log.d("######### LOG #########", "ScheduleViewModel: ViewModel called (setSchedule)")
     }
 }
 
