@@ -9,13 +9,17 @@ import android.content.pm.PackageManager
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiManager
 import android.os.Bundle
-import android.util.Log
-import android.widget.*
+import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,21 +30,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun scanSuccess() {
         val results = wifiManager.scanResults
-        Log.d("scanSuccess", "Called")
-        Log.d("listName", generateWifiNameList(results).toString())
         generateList(generateWifiNameList(results))
-        Log.d("result: ", results.toString())
     }
 
     private fun scanFailure() {
         val results = wifiManager.scanResults
-        generateList(generateWifiNameList(results))
-        Log.d("result: ", results.toString())
     }
 
     private fun generateWifiNameList(results: List<ScanResult>): List<String> {
         var tempList: List<String> = listOf()
-        Log.d("generateWifiNameList", results.toString())
         for (item in results) {
             tempList += item.SSID
         }
@@ -57,7 +55,6 @@ class MainActivity : AppCompatActivity() {
 
         scanBtn.setOnClickListener{
             wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-            Log.d("scanBtn", "Clicked!")
             if (!checkIfAlreadyHavePermission()) {
                 requestForSpecificPermission();
             } else{
@@ -68,7 +65,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkIfAlreadyHavePermission(): Boolean {
         val result =
-            applicationContext?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_COARSE_LOCATION) }
+            applicationContext?.let { ContextCompat.checkSelfPermission(
+                it,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) }
         return result == PackageManager.PERMISSION_GRANTED
     }
 
@@ -103,21 +103,57 @@ class MainActivity : AppCompatActivity() {
         applicationContext.registerReceiver(wifiScanReceiver, intentFilter)
 
         val success = wifiManager.startScan()
-        Log.d("Success? -->", success.toString())
         if (!success) {
-            // scan failure handling
             scanFailure()
-        } else {
-            scanSuccess()
         }
     }
 
     private fun generateList(wifiList: List<String>) {
-        Log.d("generateList", "Called")
-        Log.d("wifiList", wifiList.toString())
 
         wifiListAdapter = WifiListAdapter(wifiList)
         wifi_recycler_view.adapter = wifiListAdapter
+
+        val thread = Thread {
+            try {
+                sendPostRequest(wifiList.toString())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        thread.start()
     }
 
+    private fun sendPostRequest(content: String) {
+
+        val url = URL("https://38ff7f70d4e19d2c210e879cb27c9bf7.m.pipedream.net")
+        val con = url.openConnection() as HttpURLConnection
+        con.requestMethod = "POST"
+        con.setRequestProperty("Content-Type", "application/json; utf-8")
+        con.setRequestProperty("Accept", "application/json")
+        con.doOutput = true
+        val jsonInputString: String = "{\"data\":$content}"
+
+        con.outputStream.use { os ->
+            val input = jsonInputString.toByteArray(charset("utf-8"))
+            os.write(input, 0, input.size)
+        }
+
+        BufferedReader(
+            InputStreamReader(con.inputStream, "utf-8")
+        ).use { br ->
+            val response = StringBuilder()
+            var responseLine: String? = null
+            while (br.readLine().also { responseLine = it } != null) {
+                response.append(responseLine!!.trim { it <= ' ' })
+            }
+            println(response.toString())
+        }
+        runOnUiThread {
+            Toast.makeText(this@MainActivity, "POST request success!", Toast.LENGTH_SHORT).show()
+        }
+
+
+
+    }
 }
