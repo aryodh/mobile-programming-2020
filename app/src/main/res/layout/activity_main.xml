@@ -6,27 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/mainText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:fontFamily="cursive"
-        android:textSize="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:layout_margin = "16dp"
+        android:orientation = "vertical"
+        tools:context = ".MainActivity">
 
-    <TextView
-        android:id="@+id/created"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Created by Aryo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainText"
-        app:layout_constraintVertical_bias="0.9" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id = "@+id/wifi_recycler_view"
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent"
+            android:layout_above = "@+id/scanBtn"
+            tools:listitem="@layout/wifi_item"/>
+
+        <Button
+            android:id = "@+id/scanBtn"
+            android:layout_width = "match_parent"
+            android:layout_height = "50dp"
+            android:layout_alignParentBottom = "true"
+            android:layout_gravity = "bottom"
+            android:layout_margin = "15dp"
+            android:text = "Scan WiFi"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/whiteText"/>
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
